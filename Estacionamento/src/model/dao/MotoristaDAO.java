@@ -41,7 +41,7 @@ public class MotoristaDAO {
         ResultSet rs = null;
         List<Motorista> motoristas = new ArrayList<>();
         try {
-            stmt = con.prepareStatement("SELECT * FROM vaga;");
+            stmt = con.prepareStatement("SELECT * FROM motorista;");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Motorista m = new Motorista();
@@ -60,6 +60,24 @@ public class MotoristaDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return motoristas;
+    }
+    
+    public void delete(Motorista m) {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("DELETE FROM motorista WHERE idMotorista=?");
+            stmt.setInt(1, m.getIdMotorista());
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Motorista excluído com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+
+        }
     }
 
 }

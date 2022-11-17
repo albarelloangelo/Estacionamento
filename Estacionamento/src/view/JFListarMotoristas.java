@@ -123,11 +123,11 @@ public class JFListarMotoristas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
         // TODO add your handling code here:
         readJTable();
     }
-    
+
     private void jBtnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCadastrarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnCadastrarActionPerformed
@@ -137,28 +137,51 @@ public class JFListarMotoristas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnEditarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
+        if (jTMotorista.getSelectedRow() != -1) {
+            int opcao = JOptionPane.showConfirmDialog(
+                    null,
+                    "Deseja excluir o motorista selecionado?",
+                    "Exclusão",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (opcao == 0) {
+                MotoristaDAO dao = new MotoristaDAO();
+                Motorista m = new Motorista();
+
+                m.setIdMotorista((int) jTMotorista.getValueAt(jTMotorista.getSelectedRow(), 0));
+                dao.delete(m);
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Selecione um motorista!",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        readJTable();
+    }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTMotorista.getModel();
         modelo.setNumRows(0);
         MotoristaDAO dao = new MotoristaDAO();
-        for(Motorista m: dao.read()) {
+        for (Motorista m : dao.read()) {
             modelo.addRow(new Object[]{
-            m.getIdMotorista(),
-            m.getNome(),
-            m.getGenero(),
-            m.getRg(),
-            m.getCpf(),
-            m.getCelular(),
-            m.getEmail()
-            
-        });
+                m.getIdMotorista(),
+                m.getNome(),
+                m.getGenero(),
+                m.getRg(),
+                m.getCpf(),
+                m.getCelular(),
+                m.getEmail()
+
+            });
         }
-        
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
