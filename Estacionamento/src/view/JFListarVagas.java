@@ -40,6 +40,7 @@ public class JFListarVagas extends javax.swing.JFrame {
         jBtnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Listar Vagas");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -71,6 +72,11 @@ public class JFListarVagas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTVaga);
 
         jBtnCadastrar.setLabel("Cadastrar Vaga");
+        jBtnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCadastrarActionPerformed(evt);
+            }
+        });
 
         jBtnEditar.setText("Editar Vaga");
         jBtnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +160,11 @@ public class JFListarVagas extends javax.swing.JFrame {
         } 
         readJTable();
     }//GEN-LAST:event_jBtnEditarActionPerformed
+
+    private void jBtnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCadastrarActionPerformed
+        JFCadastrarVaga cv = new JFCadastrarVaga();
+        cv.setVisible(true);
+    }//GEN-LAST:event_jBtnCadastrarActionPerformed
 
     public void readJTable() {
         DefaultTableModel modelo = (DefaultTableModel) jTVaga.getModel();
